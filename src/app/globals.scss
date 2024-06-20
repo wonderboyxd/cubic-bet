@@ -1,0 +1,27 @@
+:root {
+  --color-purple: #643F82;
+  --color-light-purple: #8151A8;
+  --color-orange: #8151A8;
+  --color-green: #37AC00;
+  --color-border-green: #55F30A;
+  --color-border-green-hover: #7DFF3F;
+  --color-light-green: #41CA00;
+  --color-white: #FFFFFF;
+  --color-grey: #94A3B8;
+  --color-light-grey: #CBD5E1;
+  --color-black: #000000;
+
+  --gradient-purple: linear-gradient(268.59deg, #0C0B1E 0.91%, #2A0F3B 51.75%, #0C0B1E 98.52%);
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--gradient-purple);
+}

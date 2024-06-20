@@ -1,0 +1,17 @@
+.appSelect {
+    width: 100%;
+    border: none;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid var(--color-light-grey);
+    cursor: pointer;
+    &:focus-visible {
+        outline: none;
+    }
+    option {
+        transition: .3s all;
+        &:focus {
+            box-shadow: 0 0 10px 100px var(--color-light-grey) inset;
+        }
+    }
+}
