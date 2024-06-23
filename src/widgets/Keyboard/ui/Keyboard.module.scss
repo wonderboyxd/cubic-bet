@@ -1,0 +1,19 @@
+.keyboard {
+
+    &Title {
+        margin-bottom: 4px;
+    }
+
+    &Buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+        gap: 8px;
+
+        button {
+            &:last-child {
+                grid-column: span 2;
+            }
+        }
+    }
+}

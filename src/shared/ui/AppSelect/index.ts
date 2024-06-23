@@ -1,1 +1,1 @@
-export { AppSelect } from './ui/AppSelect'
+export * from './ui/AppSelect'

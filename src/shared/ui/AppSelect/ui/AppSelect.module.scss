@@ -1,17 +1,70 @@
 .appSelect {
     width: 100%;
-    border: none;
-    height: 40px;
-    border-radius: 6px;
-    border: 1px solid var(--color-light-grey);
-    cursor: pointer;
-    &:focus-visible {
-        outline: none;
+  
+    &Label {
+        margin-bottom: 4px;
     }
-    option {
-        transition: .3s all;
-        &:focus {
-            box-shadow: 0 0 10px 100px var(--color-light-grey) inset;
+    
+    .activator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2px;
+        cursor: pointer;
+        position: relative;
+        background: var(--color-white);
+        height: 40px;
+        border: 1px solid var(--color-light-grey);
+        border-radius: 6px;
+        &.active {
+            border: 1px solid var(--color-blue);
         }
-    }
+            &Content {
+                padding: 8px 12px 8px 12px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                transition: .3s;
+                svg {
+                    transition: .3s;
+                }
+                &.open {
+                    svg {
+                        rotate: 180deg;
+                    }
+                }
+            }
+      }
+    
+      
+      .dropdown {
+        width: 100%;
+        border-radius: 6px;
+        background-color: var(--color-white);
+        border: 1px solid var(--color-blue);
+        opacity: 1;
+        pointer-events: auto;
+        transition: .3s;
+        top: 40px;
+        position: absolute;
+        z-index: 9;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        list-style: none;
+        overflow: hidden;
+      
+        &.hide {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+      .dropdownItem {
+        width: 100%;
+        padding: 5px 12px;
+        &:hover {
+            background-color: var(--color-light-grey);
+        }
+      }
 }
