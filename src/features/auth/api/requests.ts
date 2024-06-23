@@ -6,9 +6,9 @@ interface Data {
   }
 
 
-  export const onLogin = (data: Data) => {
-    return $api.get('/client-login', {
-        login: data.login,
-        password: data.password
-    })
-  };
+  // export const onLogin = (data: Data) => {
+  //   return $api.get('/client-login', {
+  //       login: data.login,
+  //       password: data.password
+  //   })
+  // };

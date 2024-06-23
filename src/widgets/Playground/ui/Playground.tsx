@@ -16,6 +16,14 @@ export interface ICubicValue {
     text: string,
     value: number
 }
+export enum CubicOption {
+    ONE = 'one',
+    TWO = 'two',
+    THREE = 'three',
+    FOUR = 'four',
+    FIVE = 'five',
+    SIX = 'six',
+}
 
 export const Playground: FC = () => {
 
@@ -27,12 +35,12 @@ export const Playground: FC = () => {
         {title: '20', value: '20'}
     ]
     const cubicValues: ICubicValue[] = [
-        { text: 'ONE', value: 1},
-        { text: 'TWO', value: 2},
-        { text: 'THREE', value: 3},
-        { text: 'FOUR', value: 4},
-        { text: 'FIVE', value: 5},
-        { text: 'SIX', value: 6},
+        { text: CubicOption.ONE, value: 1},
+        { text: CubicOption.TWO, value: 2},
+        { text: CubicOption.THREE, value: 3},
+        { text: CubicOption.FOUR, value: 4},
+        { text: CubicOption.FIVE, value: 5},
+        { text: CubicOption.SIX, value: 6},
     ]
 
     const [cubicValue, setCubicValue] = useState<ICubicValue>(cubicValues[0])

@@ -55,7 +55,7 @@ export const AppSelect: FC<AppSelectProps> = (props: AppSelectProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = (e) => {
+  const toggleDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
     onToggle?.(isOpen);
