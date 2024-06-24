@@ -7,13 +7,15 @@ export const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
     if (config.headers) {
-      config.headers['Cookie'] = 'connect.sid= ' + Cookies.get('accessToken');
+        config.headers['Cookie'] = Cookies.get('connect.sid')
     }
     return config;
   });
 
   $api.interceptors.response.use(
-    (config) => config,
+    (config) => {
+      return config
+    },
     async (error) => {
         return Promise.reject(error);
     }

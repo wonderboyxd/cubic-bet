@@ -8,15 +8,16 @@ import { ICubicValue } from "@/widgets/Playground/ui/Playground";
 
 export interface CubicProps {
     cubicValue: ICubicValue
+    className?: string
 }
 
 export const Cubic: FC<CubicProps> = (props: CubicProps) => {
-    const { cubicValue } = props
+    const { cubicValue, className = '' } = props
 
    
 
     return (
-        <div className={classNames(cls.cubicContainer)}>
+        <div className={classNames(cls.cubicContainer, {}, [className])}>
             <div className={classNames(cls.cubic, { [cls[cubicValue.text]]: true})}>
                 {
                     Array.from({ length: cubicValue.value }, (v, i) => i + 1 ).map((item, index) => (

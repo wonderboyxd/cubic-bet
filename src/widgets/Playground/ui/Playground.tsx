@@ -46,7 +46,7 @@ export const Playground: FC = () => {
     const [cubicValue, setCubicValue] = useState<ICubicValue>(cubicValues[0])
     const [keyboardButtonPressed, setKeyboardButtonPressed] = useState<string>()
     const [betSize, setBetSize] = useState<number>(+betsSelectList[0].value)
-    const {userBalance, setUserBalance} = useAppStore()
+    const {userBalance, setUserBalance, isLogin} = useAppStore()
     const [notificationTitle, setNotificationTitle] = useState<string>('Сделайте ставку')
     const [notificationSubtitle, setNotificationSubtitle] = useState<string>('')
 
@@ -57,7 +57,6 @@ export const Playground: FC = () => {
     }
   
     const checkWIN = () => {
-        
         switch (true) {
             case keyboardButtonPressed === 'EVEN':
                 if (cubicValue.value % 2 === 0) {
@@ -113,23 +112,27 @@ export const Playground: FC = () => {
         }
     }, [cubicValue])
 
+    useEffect(() => {
+        setNotificationTitle("Войдите, чтобы продолжить")
+    }, [isLogin])
+
     const onSelectBetOption = (buttonValue: string) => {
         setKeyboardButtonPressed(buttonValue)
     }
 
+
     return (
-        <div className={classNames(cls.playground)}>
+        <div className={classNames(cls.playground, { [cls.disable]: !isLogin}, [])}>
             <header className={cls.playgroundHeader}>
             <AppText className={cls.playgroundTitle} text={notificationTitle} weight={AppTextWeight.BOLD} />
             {notificationSubtitle && <AppText className={cls.playgroundTitle} text={notificationSubtitle} size={16} weight={AppTextWeight.REGULAR} />}
             </header>
-            <Cubic cubicValue={cubicValue}/>
-            <AppText text={`Баланс: ${userBalance}`} color={AppTextColor.WHITE} />
-            <div className={cls.playgroundActivities}>
+            <Cubic cubicValue={cubicValue} className={classNames(cls.cubic, { [cls.transparency]: !isLogin }, [])}/>
+            <div className={classNames(cls.playgroundActivities, { [cls.transparency]: !isLogin }, [])}>
                 <AppSelect options={betsSelectList} defaultValue={betsSelectList[0]} label="Размер ставки" onSelect={(value) => onSelectBetSize(value)}/>
                 <Keyboard onSelect={(buttonValue) => onSelectBetOption(buttonValue)} />
             </div>
-            <AppButton text="Сделать ставку" color={AppButtonColor.GREEN} textColor={AppTextColor.WHITE} onClick={() => onPlaceABet()} />
+            <AppButton className={classNames(cls.placeBetButton, { [cls.transparency]: !isLogin }, [])} text="Сделать ставку" color={AppButtonColor.GREEN} textColor={AppTextColor.WHITE} onClick={() => onPlaceABet()} />
         </div>
     )
 }

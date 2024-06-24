@@ -56,7 +56,7 @@ export const AppButton: FC<AppButtonProps> = (props: AppButtonProps) => {
     return (
         <button
                 type="button"
-                className={classNames(cls.appButton, buttonClasses(), [disabled ? cls.disabled : ''])}
+                className={classNames(cls.appButton, buttonClasses(), [disabled ? cls.disabled : '', className])}
                 disabled={disabled}
                 {...otherProps}
             >

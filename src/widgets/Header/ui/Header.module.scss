@@ -7,12 +7,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    button {
-        width: max-content;
-    }
     &Buttons {
         display: flex;
         align-items: center;
         gap: 8px;
+        button {
+            width: max-content;
+        }
     }
 }
