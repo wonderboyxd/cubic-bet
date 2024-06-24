@@ -1,7 +1,6 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
 import cls from './AppModal.module.scss'
 import { classNames } from "@/shared/helpers/classNames/classNames";
-import { useForm, SubmitHandler} from "react-hook-form";
 import { Icon } from "../../AppIcon";
 import CloseIcon from '@/shared/assets/icons/close.svg'
 
