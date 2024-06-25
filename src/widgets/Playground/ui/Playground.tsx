@@ -11,7 +11,7 @@ import { Keyboard } from "@/widgets/Keyboard";
 import { AppButton } from "@/shared/ui/AppButton";
 import { AppButtonColor } from "@/shared/ui/AppButton/ui/AppButton";
 import { useAppStore } from "@/app/providers/Store/store";
-import { userData } from "@/features/auth/api/requests";
+
 export interface ICubicValue {
     text: string,
     value: number
