@@ -6,7 +6,7 @@ import { AppModal } from "../../AppModal";
 import { AppInput } from "../../AppInput";
 import { AppButton } from "../../AppButton";
 import { AppButtonColor } from "../../AppButton/ui/AppButton";
-import { login, userData } from "@/features/auth/api/requests";
+import { login } from "@/features/auth/api/requests";
 import { useAppStore } from "@/app/providers/Store/store";
 import Cookies from "js-cookie";
 export interface AuthModalProps {
