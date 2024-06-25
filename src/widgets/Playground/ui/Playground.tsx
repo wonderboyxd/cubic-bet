@@ -11,7 +11,7 @@ import { Keyboard } from "@/widgets/Keyboard";
 import { AppButton } from "@/shared/ui/AppButton";
 import { AppButtonColor } from "@/shared/ui/AppButton/ui/AppButton";
 import { useAppStore } from "@/app/providers/Store/store";
-
+import { userData } from "@/features/auth/api/requests";
 export interface ICubicValue {
     text: string,
     value: number
@@ -46,10 +46,9 @@ export const Playground: FC = () => {
     const [cubicValue, setCubicValue] = useState<ICubicValue>(cubicValues[0])
     const [keyboardButtonPressed, setKeyboardButtonPressed] = useState<string>()
     const [betSize, setBetSize] = useState<number>(+betsSelectList[0].value)
-    const {userBalance, setUserBalance, isLogin} = useAppStore()
     const [notificationTitle, setNotificationTitle] = useState<string>('Сделайте ставку')
     const [notificationSubtitle, setNotificationSubtitle] = useState<string>('')
-
+    const {userBalance, setUserBalance, isLogin} = useAppStore()
     
 
     const onSelectBetSize = (bet: IOptionsItem) => {
@@ -113,7 +112,12 @@ export const Playground: FC = () => {
     }, [cubicValue])
 
     useEffect(() => {
-        setNotificationTitle("Войдите, чтобы продолжить")
+        if (!isLogin) {
+            setNotificationTitle("Войдите, чтобы продолжить")
+        } else {
+            setNotificationTitle('Сделайте ставку')
+        }
+        
     }, [isLogin])
 
     const onSelectBetOption = (buttonValue: string) => {

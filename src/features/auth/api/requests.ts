@@ -13,6 +13,6 @@ interface Data {
     })
   };
 
-  export const userData = () => {
+  export const getUserData = () => {
     return $api.get('/auth/me')
   }

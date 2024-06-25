@@ -8,8 +8,7 @@ import { AppButton } from "../../AppButton";
 import { AppButtonColor } from "../../AppButton/ui/AppButton";
 import { login, userData } from "@/features/auth/api/requests";
 import { useAppStore } from "@/app/providers/Store/store";
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
 export interface AuthModalProps {
     isShowModal: boolean;
     className?: string;
@@ -41,10 +40,8 @@ export const AuthModal: FC<AuthModalProps> = (props: AuthModalProps) => {
         login({login: loginValue, password: passwordValue})
         .then((res) => {
             setIsLogin(true)
-            setUserBalance(res.data.balance)
+            setUserBalance(res.data.balance + 100)
             onCloseModal?.()
-            console.log(res.headers['Set-Cookie']);
-            
         })
         .catch((error) => {
             console.log(error);
