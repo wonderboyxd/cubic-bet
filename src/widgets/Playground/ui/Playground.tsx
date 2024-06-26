@@ -14,7 +14,9 @@ import { useAppStore } from "@/app/providers/Store/store";
 
 export interface ICubicValue {
     text: string,
-    value: number
+    value: number,
+    side: string,
+    transform: string
 }
 export enum CubicOption {
     ONE = 'one',
@@ -35,16 +37,18 @@ export const Playground: FC = () => {
         {title: '20', value: '20'}
     ]
     const cubicValues: ICubicValue[] = [
-        { text: CubicOption.ONE, value: 1},
-        { text: CubicOption.TWO, value: 2},
-        { text: CubicOption.THREE, value: 3},
-        { text: CubicOption.FOUR, value: 4},
-        { text: CubicOption.FIVE, value: 5},
-        { text: CubicOption.SIX, value: 6},
+        { text: CubicOption.ONE, value: 1, side: 'front', transform: 'rotateX(0deg) rotateY(0deg)' },
+        { text: CubicOption.TWO, value: 2, side: 'back', transform: 'rotateX(0deg) rotateY(180deg)' },
+        { text: CubicOption.THREE, value: 3, side: 'right', transform: 'rotateX(0deg) rotateY(90deg)' },
+        { text: CubicOption.FOUR, value: 4, side: 'left', transform: 'rotateX(0deg) rotateY(-90deg)' },
+        { text: CubicOption.FIVE, value: 5, side: 'top', transform: 'rotateX(90deg) rotateY(0deg)' },
+        { text: CubicOption.SIX, value: 6, side: 'bottom', transform: 'rotateX(-90deg) rotateY(0deg)' },
     ]
 
     const [cubicValue, setCubicValue] = useState<ICubicValue>(cubicValues[0])
+    const [userCubicValue, setUserCubicValue] = useState<number | null>(null)
     const [keyboardButtonPressed, setKeyboardButtonPressed] = useState<string>()
+    const [transformCubic, setTransformCubic] = useState<string>('')
     const [betSize, setBetSize] = useState<number>(+betsSelectList[0].value)
     const [notificationTitle, setNotificationTitle] = useState<string>('Сделайте ставку')
     const [notificationSubtitle, setNotificationSubtitle] = useState<string>('')
@@ -92,16 +96,29 @@ export const Playground: FC = () => {
                     setUserBalance(userBalance - betSize)
                     setNotificationSubtitle('Повезет в следующий раз!')
                 }
+                break;
+            case keyboardButtonPressed === 'SPECIFIC_NUMBER': 
+                if (cubicValue.value === userCubicValue) {
+                        setUserBalance(userBalance + (betSize * 2))
+                        setNotificationSubtitle(`Вы выиграли ${betSize} TND!`)
+                } else {
+                        setUserBalance(userBalance - betSize)
+                        setNotificationSubtitle('Повезет в следующий раз!')
+                }
+                break;
             default:
                 return;
         }
         setNotificationTitle(`Результат броска: ${cubicValue.value}`)
 
     }
+
     
     const onPlaceABet = () => {
         if (keyboardButtonPressed && (userBalance - betSize) >= 0) {
-            setCubicValue(cubicValues[Math.floor(Math.random() * (7 - 1) + 1) - 1])
+            const cubicValue = cubicValues[Math.floor(Math.random() * (7 - 1) + 1) - 1]
+            setCubicValue(cubicValue)
+            setTransformCubic(cubicValue.transform)
         }
     }
 
@@ -120,8 +137,11 @@ export const Playground: FC = () => {
         
     }, [isLogin])
 
-    const onSelectBetOption = (buttonValue: string) => {
+    const onSelectBetOption = (buttonValue: string, userSelectedNumber?: number) => {
         setKeyboardButtonPressed(buttonValue)
+        if (userSelectedNumber) {
+            setUserCubicValue(userSelectedNumber)
+        }
     }
 
 
@@ -131,10 +151,10 @@ export const Playground: FC = () => {
             <AppText className={cls.playgroundTitle} text={notificationTitle} weight={AppTextWeight.BOLD} />
             {notificationSubtitle && <AppText className={cls.playgroundTitle} text={notificationSubtitle} size={16} weight={AppTextWeight.REGULAR} />}
             </header>
-            <Cubic cubicValue={cubicValue} className={classNames(cls.cubic, { [cls.transparency]: !isLogin }, [])}/>
+            <Cubic cubicValues={cubicValues} transformStyle={transformCubic} className={classNames(cls.cubic, { [cls.transparency]: !isLogin }, [])}/>
             <div className={classNames(cls.playgroundActivities, { [cls.transparency]: !isLogin }, [])}>
                 <AppSelect options={betsSelectList} defaultValue={betsSelectList[0]} label="Размер ставки" onSelect={(value) => onSelectBetSize(value)}/>
-                <Keyboard onSelect={(buttonValue) => onSelectBetOption(buttonValue)} />
+                <Keyboard onSelect={(buttonValue, userSelectedNumber) => onSelectBetOption(buttonValue, userSelectedNumber)} />
             </div>
             <AppButton className={classNames(cls.placeBetButton, { [cls.transparency]: !isLogin }, [])} text="Сделать ставку" color={AppButtonColor.GREEN} textColor={AppTextColor.WHITE} onClick={() => onPlaceABet()} />
         </div>

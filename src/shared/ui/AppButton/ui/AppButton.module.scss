@@ -12,9 +12,21 @@
   position: relative;
   border-radius: 5px;
 }
-  
 
-  
+.haveSelect {
+  justify-content: space-between;
+}
+.buttonSelect {
+  max-width: 30px;
+  &Activator {
+    padding: 4px 10px!important;
+    height: 22px!important;
+  }
+  &DropdownItem {
+    padding: 4px 10px!important;
+  }
+}
+
 .primary {
   padding: 10px 16px;
   background-color: var(--color-green);

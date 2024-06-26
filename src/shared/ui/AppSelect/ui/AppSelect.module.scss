@@ -16,11 +16,12 @@
         height: 40px;
         border: 1px solid var(--color-light-grey);
         border-radius: 6px;
+        padding: 8px 12px 8px 12px;
         &.active {
             border: 1px solid var(--color-blue);
         }
             &Content {
-                padding: 8px 12px 8px 12px;
+                
                 width: 100%;
                 display: flex;
                 align-items: center;

@@ -6,7 +6,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+
+    .cubicWrapper {
+        width: 92px;
+        height: 92px;
+        transform-style: preserve-3d;
+        transform: rotateX(0deg) rotateY(0deg);
+        transition: transform 1s;
+    }
+
     .cubic {
+        position: absolute;
         width: 92px;
         height: 92px;
         border-radius: 5px;
@@ -14,7 +25,16 @@
         display: grid;
         align-items: center;
         justify-items: center;
-        
+
+        &.one {
+            grid-template-columns: auto;
+        }
+        &.two {
+            grid-template-columns: auto;
+        }
+        &.three {
+            grid-template-columns: auto;
+        }
         &.four {
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, auto);
@@ -33,6 +53,14 @@
             
         }
     }
+
+    .front  { transform: translateZ(42px); }
+    .back   { transform: rotateY(180deg) translateZ(42px); }
+    .right  { transform: rotateY(-90deg) translateZ(42px); }
+    .left   { transform: rotateY(90deg) translateZ(42px); }
+    .top    { transform: rotateX(-90deg) translateZ(42px); }
+    .bottom { transform: rotateX(90deg) translateZ(42px); }
+
     .dot {
         width: 15px;
         height: 15px;

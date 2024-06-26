@@ -28,12 +28,27 @@ export const AuthModal: FC<AuthModalProps> = (props: AuthModalProps) => {
     const [inputsErrors, setInputsErrors] = useState({loginError: '', passwordError: ''})
     const {userBalance, setUserBalance, setIsLogin} = useAppStore()
 
+    const nonEmptyStringRegex = /^(?!\s*$).+/;
+
     const handleLoginInputChange = (login: string) => {
-        setLoginValue(login)
+        if (nonEmptyStringRegex.test(login)) {
+            setLoginValue(login)
+            setInputsErrors({loginError: '' , passwordError: inputsErrors.passwordError ?? ''})
+        } else {
+            setLoginValue('')
+            setInputsErrors({loginError: 'Login is required.', passwordError: inputsErrors.passwordError ?? ''})
+        }
+        
     }
 
     const handlePasswordInputValue = (password: string) => {
-        setPasswordValue(password)
+        if (nonEmptyStringRegex.test(password)) {
+            setPasswordValue(password)
+            setInputsErrors({loginError: inputsErrors.loginError ?? '', passwordError: ''})
+        } else {
+            setPasswordValue('')
+            setInputsErrors({loginError: inputsErrors.loginError ?? '', passwordError: 'Password is required.'})
+        }
     }
 
     const handleLogin = async () => {
@@ -52,8 +67,8 @@ export const AuthModal: FC<AuthModalProps> = (props: AuthModalProps) => {
     return (
         <AppModal isOpen={isShowModal} onClose={onCloseModal}>
             <form  className={cls.authModalForm} onSubmit={handleLogin} >
-                <AppInput placeholder={'Login'} type={'text'} value={loginValue} onChange={handleLoginInputChange} />
-                <AppInput placeholder={'Password'} type={'password'} value={passwordValue} onChange={handlePasswordInputValue}/>
+                <AppInput placeholder={'Login'} type={'text'} value={loginValue} error={inputsErrors.loginError} onChange={handleLoginInputChange} />
+                <AppInput placeholder={'Password'} type={'password'} value={passwordValue} error={inputsErrors.passwordError} onChange={handlePasswordInputValue}/>
                 <AppButton className={cls.authModalButton} text="Войти" color={AppButtonColor.PURPLE} onClick={handleLogin} />
             </form>
         </AppModal>

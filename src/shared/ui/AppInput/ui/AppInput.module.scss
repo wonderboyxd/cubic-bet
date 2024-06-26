@@ -1,4 +1,8 @@
-  
+  .appInput {
+    &ErrorText {
+      margin-top: 5px;
+    }
+  }
   .input {
     padding: 8px 12px;
     height: 40px;

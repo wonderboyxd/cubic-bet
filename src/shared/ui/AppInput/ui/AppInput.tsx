@@ -2,6 +2,8 @@
 import React, { FC, InputHTMLAttributes, useEffect, useRef, useState } from "react";
 import cls from './AppInput.module.scss'
 import { classNames } from "@/shared/helpers/classNames/classNames";
+import { AppText } from "../../AppText";
+import { AppTextColor, AppTextWeight } from "../../AppText/ui/AppText.helper";
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>;
 
@@ -10,7 +12,7 @@ export interface AppInputProps extends HTMLInputProps {
     placeholder?: string;
     value?: string;
     onChange?: (value: string) => void;
-    isError?: boolean;
+    error?: string;
     onFocus?: () => void;
     onBlur?: () => void;
 }
@@ -23,7 +25,7 @@ export const AppInput: FC<AppInputProps> = (props: AppInputProps) => {
         value,
         type = 'text',
         autoFocus,
-        isError = false,
+        error = '',
         onChange,
         onBlur,
         onFocus,
@@ -56,19 +58,22 @@ export const AppInput: FC<AppInputProps> = (props: AppInputProps) => {
     };
 
     return (
+      <div className={cls.appInput}>
         <input
-          ref={inputRef}
-          className={cls.input}
-          type={type}
-          value={value}
-          onChange={onChangeHandler}
-          onBlur={onBlurHandler}
-          onFocus={onFocusHandler}
-          onWheel={(e) => {
-            if (e.target instanceof HTMLInputElement) e.target.blur();
-          }}
-          {...otherProps}
-          {...(placeholder ? { placeholder: placeholder } : {})}
-        />
+            ref={inputRef}
+            className={cls.input}
+            type={type}
+            value={value}
+            onChange={onChangeHandler}
+            onBlur={onBlurHandler}
+            onFocus={onFocusHandler}
+            onWheel={(e) => {
+              if (e.target instanceof HTMLInputElement) e.target.blur();
+            }}
+            {...otherProps}
+            {...(placeholder ? { placeholder: placeholder } : {})}
+          />
+          {error && <AppText className={cls.appInputErrorText} text={error} size={14} weight={AppTextWeight.REGULAR} color={AppTextColor.RED} />}
+        </div>
     )
 }

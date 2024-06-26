@@ -49,11 +49,27 @@ export const Keyboard: FC<KeyboardProps> = (props: KeyboardProps) => {
         }
     }
 
+    const specificNumberSelectList = [
+       {title: '1', value: '1'},
+       {title: '2', value: '2'},
+       {title: '3', value: '3'},
+       {title: '4', value: '4'},
+       {title: '5', value: '5'},
+       {title: '6', value: '6'}
+    ]
 
 
-    const handleClick = (button: IButton, index: number) => {
-        onSelect(button.value)
+
+    const handleClick = (button: IButton, index: number, selectedNumber?: number) => {
+        if (selectedNumber) {
+            onSelect(button.value, selectedNumber)
+            setActiveButtonIndex(index)
+        } else {
+            onSelect(button.value)
+        }
+
         if (index !== activeButtonIndex) {
+            
             setActiveButtonIndex(index)
         } else {
             setActiveButtonIndex(null)
@@ -70,6 +86,9 @@ export const Keyboard: FC<KeyboardProps> = (props: KeyboardProps) => {
                             key={index} 
                             text={buttons[item].title}
                             textColor={AppTextColor.WHITE} 
+                            selectList={specificNumberSelectList}
+                            isHaveSelect={index === Object.keys(buttons).length - 1}
+                            onSelect={(selectedNumber) => handleClick(buttons[item], index, +selectedNumber.value)}
                             color={activeButtonIndex === index ? AppButtonColor.ORANGE : AppButtonColor.PURPLE} 
                             onClick={() => handleClick(buttons[item], index)}
                         />

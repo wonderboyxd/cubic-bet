@@ -1,6 +1,7 @@
 export enum AppTextColor {
     WHITE = 'white',
     BLACK = 'black',
+    RED = 'red'
 }
 export enum AppTextSize {
   LARGE = 20,

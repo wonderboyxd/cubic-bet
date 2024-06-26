@@ -26,10 +26,13 @@ export interface IOptionsItem {
 
 interface AppSelectProps {
   className?: string;
+  activatorClassName?: string,
   dropdownClassName?: string;
+  dropdownItemClassName?: string,
   options: IOptionsItem[];
   defaultValue: IOptionsItem;
-  label: string;
+  label?: string;
+  isHaveChevron?: boolean,
   onToggle?: (state: boolean) => void;
   onSelect: (value: IOptionsItem) => void
 }
@@ -37,10 +40,13 @@ interface AppSelectProps {
 export const AppSelect: FC<AppSelectProps> = (props: AppSelectProps) => {
   const {
     className = '',
+    activatorClassName = '',
     dropdownClassName = '',
+    dropdownItemClassName = '',
     options,
     label,
     defaultValue,
+    isHaveChevron = true,
     onToggle,
     onSelect
   } = props;
@@ -71,17 +77,17 @@ export const AppSelect: FC<AppSelectProps> = (props: AppSelectProps) => {
 
   return (
     <div ref={ref} className={classNames(cls.appSelect, {}, [className])}>
-        <AppText className={cls.appSelectLabel} text={label} size={14}/>
-      <div className={classNames(cls.activator, {[cls.active]: isOpen})} onClick={(e) => toggleDropdown(e)}>
+        {label && <AppText className={cls.appSelectLabel} text={label} size={14}/>}
+      <div className={classNames(cls.activator, {[cls.active]: isOpen}, [activatorClassName])} onClick={(e) => toggleDropdown(e)}>
         <div className={classNames(cls.activatorContent, {[cls.open]: isOpen})}>
             <AppText text={activeValue.title} color={AppTextColor.BLACK} />
-            <Icon Svg={ChevronDown} />
+            {isHaveChevron && <Icon Svg={ChevronDown} />}
         </div>
         <ul
           className={classNames(cls.dropdown, { [cls.hide]: !isOpen }, [dropdownClassName])}
         >   {
             options.map((option, index) => (
-                <li key={index} className={cls.dropdownItem} onClick={() => onSelectItem(option)}>
+                <li key={index} className={classNames(cls.dropdownItem, {}, [dropdownItemClassName]) } onClick={() => onSelectItem(option)}>
                     <AppText text={option.title} color={AppTextColor.BLACK} />
                 </li>
             ))
